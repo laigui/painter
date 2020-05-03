@@ -1,0 +1,37 @@
+#:import utils kivy.utils
+
+<ToolButton@ToggleButton>:
+    size_hint: None, None
+    size: 48, 48
+    font_size: 24
+    halign: 'center'
+    group: 'tool'
+    markup: True
+    canvas:
+        PushMatrix:
+        Translate:
+            xy: self.x,self.y
+    canvas.after:
+        PopMatrix:
+
+<ToolBox@GridLayout>:
+    cols: 1
+    padding: 25
+    spacing: 20
+
+    ToolButton:
+        background_color: 0, 0, 0, 0
+        text:
+            ('[font=Font Awesome Solid][color=#41a0db][size=30]\uf015[/size][/color][/font]')
+    ToolButton:
+        background_color: 0, 0, 0, 0
+        text:
+            ('[font=Font Awesome Solid][color=#41a0db][size=30]\uf7d9[/size][/color][/font]')
+    ToolButton:
+        background_color: 0, 0, 0, 0
+        text:
+            ('[font=Font Awesome Solid][color=#41a0db][size=30]\uf1f8[/size][/color][/font]')
+        on_release: root.clear_canvas()
+    ToolButton:
+        StickMan:
+            pos_hint: {'center_x':.5, 'center_y':.5}

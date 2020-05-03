@@ -1,0 +1,60 @@
+#:kivy 1.11.1
+<DraggableWidget>:
+    size_hint: None, None
+
+<StickMan>:
+    size: 48, 48
+    canvas:
+        PushMatrix
+        Line:
+            circle: 24,38,5
+        Line:
+            points: 24,33,24,15
+        Line:
+            points: 14,5,24,15
+        Line:
+            points: 34,5,24,15
+        Translate:
+            y: 48-8
+        Rotate:
+            angle: 180
+            axis: 1,0,0
+        Line:
+            points: 14,5,24,15
+        Line:
+            points: 34,5,24,15
+        PopMatrix
+
+<MainWindow>:
+    geninfo_bar: _geninfo_bar
+    drawing_space: _drawing_space
+    BoxLayout:
+        orientation: 'horizontal'
+        ToolBox:
+            id: _tool_box
+            drawing_space: _drawing_space
+            size_hint: None, 1
+            width: 100
+        BoxLayout:
+            orientation: 'vertical'
+            GenInfoBar:
+                id: _geninfo_bar
+                size_hint: None, None
+                width: root.width - _tool_box.width
+                height: 100
+            DrawingSpace:
+                id: _drawing_space
+                size_hint: None, None
+                width: root.width - _tool_box.width
+                height: root.height - _geninfo_bar.height - _status_bar.height
+            GeneralOptions:
+                id: _general_options
+                size_hint: None, None
+                width: root.width - _tool_box.width
+                height: 40
+            StatusBar:
+                id: _status_bar
+                size_hint: None, None
+                width: root.width - _tool_box.width
+                height: 24
+
