@@ -3,12 +3,15 @@ from kivy.app import App
 from kivy.core.text import LabelBase
 from kivy.lang import Builder
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.togglebutton import ToggleButton
 from kivy.config import Config
 from kivy.utils import get_color_from_hex
 from kivy.graphics import Color, Line
 from kivy.clock import Clock
 from datetime import datetime, timedelta
+from kivy.properties import NumericProperty, ListProperty
 
 
 Builder.load_file('ui/mainwindow.kv')
@@ -67,6 +70,34 @@ class DraggableWidget(RelativeLayout):
 
 class StickMan(DraggableWidget):
     pass
+
+
+class ToolButton(ToggleButton):
+    def on_touch_down(self, touch):
+        ds = self.parent.drawing_space
+        if self.state == 'down' and ds.collide_point(touch.x, touch.y):
+            (x, y) = ds.to_widget(touch.x, touch.y)
+            self.draw(ds, x, y)
+            return True
+        return super(ToolButton, self).on_touch_down(touch)
+
+    def draw(self, ds, x, y):
+        pass
+
+
+class ToolStickMan(ToolButton):
+    def draw(self, ds, x, y):
+        sm = StickMan(width=48, height=48)
+        sm.center = (x, y)
+        ds.add_widget(sm)
+
+
+class GeneralOptions(BoxLayout):
+    group_mode = False
+    translation = ListProperty(None)
+
+    def clear(self, instance):
+        self.drawing_space.clear_widgets()
 
 
 class Painter(App):

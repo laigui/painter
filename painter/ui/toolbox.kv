@@ -1,6 +1,5 @@
 #:import utils kivy.utils
-
-<ToolButton@ToggleButton>:
+<ToolButton>:
     size_hint: None, None
     size: 48, 48
     font_size: 24
@@ -31,7 +30,5 @@
         background_color: 0, 0, 0, 0
         text:
             ('[font=Font Awesome Solid][color=#41a0db][size=30]\uf1f8[/size][/color][/font]')
-        on_release: root.clear_canvas()
-    ToolButton:
-        StickMan:
-            pos_hint: {'center_x':.5, 'center_y':.5}
+        on_press: root.parent.ids._general_options.clear(*args)
+    ToolStickMan:
